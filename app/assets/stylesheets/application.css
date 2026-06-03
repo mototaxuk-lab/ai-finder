@@ -47,9 +47,16 @@ a:hover { text-decoration: underline; }
 .search-form { display: flex; gap: 0.5rem; max-width: 38rem; margin: 0 auto; }
 .search-input {
   flex: 1; padding: 0.85rem 1rem; font-size: 1rem;
-  border: 1px solid var(--line); border-radius: 10px; background: #fff;
+  /* gradient border via padding-box/border-box layering */
+  border: 3px solid transparent; border-radius: 12px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(115deg, #22c55e, #3b82f6) border-box;
 }
-.search-input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
 .search-button {
   padding: 0.85rem 1.5rem; font-size: 1rem; font-weight: 700;
   color: #fff; cursor: pointer; border: 0; border-radius: 12px;
