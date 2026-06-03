@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AiFinder</title>
+    <title>AI Finder — Google for AI</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <a href="/" class="brand">AI&nbsp;Finder</a>
+      <span class="brand-tag">tell us what you need, in plain English</span>
+    </header>
+    <main class="container">
+      <%= yield %>
+    </main>
+    <footer class="site-footer">
+      A small, honest catalogue. Prices and privacy facts change — always double-check on the tool's own site.
+    </footer>
   </body>
 </html>

@@ -1,0 +1,51 @@
+<article class="card">
+  <header class="card-head">
+    <h3 class="card-name"><%= tool.name %></h3>
+    <% if tool.provider.present? %><span class="card-provider">by <%= tool.provider %></span><% end %>
+  </header>
+
+  <% if tool.why_this_one.present? %>
+    <p class="card-why"><%= tool.why_this_one %></p>
+  <% end %>
+
+  <ul class="card-labels">
+    <li class="label label-price">💸 <%= tool.display_price_label %></li>
+    <li class="label label-privacy">🔒 <%= tool.display_privacy_label %></li>
+    <li class="label label-ease">🛠️ <%= tool.display_ease_label %></li>
+  </ul>
+
+  <footer class="card-foot">
+    <% if tool.website_url.present? %>
+      <%= link_to "Visit site →", tool.website_url, target: "_blank", rel: "noopener", class: "card-link" %>
+    <% end %>
+
+    <details class="card-specs">
+      <summary>See the full specs</summary>
+      <dl class="specs">
+        <% if tool.context_window.present? %>
+          <dt>Context window</dt><dd><%= number_with_delimiter(tool.context_window) %> tokens</dd>
+        <% end %>
+        <% if tool.input_usd_per_m.present? || tool.output_usd_per_m.present? %>
+          <dt>API price</dt>
+          <dd>
+            <%= [tool.input_usd_per_m, tool.output_usd_per_m].compact.map { |p| "$#{p}" }.join(" in / ") %>
+            <%= "out" if tool.output_usd_per_m.present? %>
+            <%= tool.pricing_unit %>
+          </dd>
+        <% elsif tool.price_low_usd.present? %>
+          <dt>Price</dt>
+          <dd>$<%= tool.price_low_usd %><%= " – $#{tool.price_high_usd}" if tool.price_high_usd.present? %> <%= tool.pricing_unit %></dd>
+        <% end %>
+        <dt>Free app for individuals</dt><dd><%= tool.consumer_free_app? ? "yes" : "no" %></dd>
+        <dt>Runs on your computer</dt><dd><%= tool.runs_locally? ? "yes" : "no" %></dd>
+        <dt>Data retention</dt><dd><%= tool.data_retention %></dd>
+        <% if tool.last_verified.present? %>
+          <dt>Last checked</dt><dd><%= tool.last_verified.strftime("%-d %b %Y") %></dd>
+        <% end %>
+        <% if tool.data_pricing_confidence.present? %>
+          <dt>Pricing confidence</dt><dd><%= tool.data_pricing_confidence %></dd>
+        <% end %>
+      </dl>
+    </details>
+  </footer>
+</article>

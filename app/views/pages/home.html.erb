@@ -1,5 +1,25 @@
-<div style="max-width: 640px; margin: 4rem auto; font-family: system-ui, sans-serif; text-align: center;">
-  <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">AI Finder</h1>
-  <p style="color: #666; font-size: 1.1rem;">Google for AI — tell us what you need, in plain English.</p>
-  <p style="margin-top: 2rem; color: #999;">🚧 Coming soon. The scaffold is live.</p>
-</div>
+<section class="hero">
+  <h1>What do you need AI to do?</h1>
+  <p class="hero-sub">Describe it in plain English. We'll suggest a few honest options — and tell you the catch.</p>
+
+  <%= form_with url: search_path, method: :get, class: "search-form" do |f| %>
+    <%= f.search_field :q,
+          placeholder: "e.g. transcribe my interviews without my data being kept",
+          autofocus: true,
+          autocomplete: "off",
+          class: "search-input" %>
+    <%= f.submit "Find tools", class: "search-button" %>
+  <% end %>
+</section>
+
+<section class="browse">
+  <h2 class="browse-title">…or browse by what you want to do</h2>
+  <div class="tile-grid">
+    <% @categories.each do |category| %>
+      <%= link_to search_path(category: category.slug), class: "tile" do %>
+        <span class="tile-name"><%= category.display_name %></span>
+        <span class="tile-sub"><%= category.subtitle %></span>
+      <% end %>
+    <% end %>
+  </div>
+</section>
