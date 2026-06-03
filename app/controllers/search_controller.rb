@@ -7,8 +7,8 @@ class SearchController < ApplicationController
         # Browse tile: already structured, skip the parser (and, later, the LLM).
         ParsedNeed.from_category(params[:category])
       elsif @query.present?
-        # Step 5 will swap this for NeedParser.call(@query) (LLM + this as fallback).
-        ParsedNeed.from_keywords(@query)
+        # LLM parse (Claude Haiku); falls back to keyword parse on any failure.
+        NeedParser.call(@query)
       end
 
     return redirect_to(root_path) if @need.nil?
