@@ -51,50 +51,13 @@ a:hover { text-decoration: underline; }
 }
 .search-input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
 .search-button {
-  position: relative;
   padding: 0.85rem 1.5rem; font-size: 1rem; font-weight: 700;
-  color: #fff; cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  /* glassy: translucent rainbow over a blurred backdrop */
-  background-image: linear-gradient(
-    115deg,
-    rgba(255, 0, 90, 0.65),
-    rgba(255, 154, 0, 0.65),
-    rgba(208, 222, 33, 0.65),
-    rgba(79, 220, 74, 0.65),
-    rgba(63, 218, 216, 0.65),
-    rgba(75, 110, 247, 0.65),
-    rgba(178, 90, 255, 0.65),
-    rgba(255, 0, 90, 0.65)
-  );
-  background-size: 300% 300%;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  box-shadow:
-    0 4px 18px rgba(80, 70, 229, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-  animation: rainbow-shift 6s linear infinite;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  color: #fff; cursor: pointer; border: 0; border-radius: 12px;
+  background-image: linear-gradient(115deg, #4f6ef7, #ec4899);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.15s ease;
 }
-.search-button:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 6px 24px rgba(80, 70, 229, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-.search-button:active { transform: translateY(0); }
-
-@keyframes rainbow-shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .search-button { animation: none; }
-}
+.search-button:hover { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16); }
 
 /* ---- browse tiles ---- */
 .browse { margin-top: 3rem; }
