@@ -5,5 +5,6 @@ class ToolsController < ApplicationController
 
   def show
     @tool = Tool.find(params[:id])
+    Event.record(event_type: "specs_expand", clicked_tool_id: @tool.id)
   end
 end

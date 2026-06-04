@@ -28,7 +28,9 @@
   </ul>
 
   <% if @tool.website_url.present? %>
-    <p><%= link_to "Visit #{@tool.name} →", @tool.website_url, target: "_blank", rel: "noopener", class: "visit-btn" %></p>
+    <p><%= link_to "Visit #{@tool.name} →", @tool.website_url, target: "_blank", rel: "noopener", class: "visit-btn",
+          data: { controller: "event-logger", action: "click->event-logger#log",
+                  "event-logger-type-value": "card_click", "event-logger-tool-value": @tool.id } %></p>
   <% end %>
 
   <section class="specs-block">

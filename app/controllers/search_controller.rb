@@ -16,6 +16,11 @@ class SearchController < ApplicationController
     @result = ToolMatcher.call(@need)
     @tools  = @result.tools
 
-    # Step 8: log a `search` event (query, parsed filters, shown tool ids) here.
+    Event.record(
+      event_type:     "search",
+      search_query:   @query.presence,
+      parsed_filters: @need.to_h,
+      shown_tool_ids: @tools.map(&:id)
+    )
   end
 end

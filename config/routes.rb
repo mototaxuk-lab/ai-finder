@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get "search", to: "search#index"
   resources :tools, only: :show
+  resources :events, only: :create
 
   # Defines the root path route ("/")
   root "pages#home"
