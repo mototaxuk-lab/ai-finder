@@ -15,37 +15,9 @@
   </ul>
 
   <footer class="card-foot">
+    <%= link_to "See the full specs →", tool_path(tool), class: "card-link" %>
     <% if tool.website_url.present? %>
-      <%= link_to "Visit site →", tool.website_url, target: "_blank", rel: "noopener", class: "card-link" %>
+      <%= link_to "Visit site", tool.website_url, target: "_blank", rel: "noopener", class: "card-visit" %>
     <% end %>
-
-    <details class="card-specs">
-      <summary>See the full specs</summary>
-      <dl class="specs">
-        <% if tool.context_window.present? %>
-          <dt>Context window</dt><dd><%= number_with_delimiter(tool.context_window) %> tokens</dd>
-        <% end %>
-        <% if tool.input_usd_per_m.present? || tool.output_usd_per_m.present? %>
-          <dt>API price</dt>
-          <dd>
-            <%= [tool.input_usd_per_m, tool.output_usd_per_m].compact.map { |p| "$#{p}" }.join(" in / ") %>
-            <%= "out" if tool.output_usd_per_m.present? %>
-            <%= tool.pricing_unit %>
-          </dd>
-        <% elsif tool.price_low_usd.present? %>
-          <dt>Price</dt>
-          <dd>$<%= tool.price_low_usd %><%= " – $#{tool.price_high_usd}" if tool.price_high_usd.present? %> <%= tool.pricing_unit %></dd>
-        <% end %>
-        <dt>Free app for individuals</dt><dd><%= tool.consumer_free_app? ? "yes" : "no" %></dd>
-        <dt>Runs on your computer</dt><dd><%= tool.runs_locally? ? "yes" : "no" %></dd>
-        <dt>Data retention</dt><dd><%= tool.data_retention %></dd>
-        <% if tool.last_verified.present? %>
-          <dt>Last checked</dt><dd><%= tool.last_verified.strftime("%-d %b %Y") %></dd>
-        <% end %>
-        <% if tool.data_pricing_confidence.present? %>
-          <dt>Pricing confidence</dt><dd><%= tool.data_pricing_confidence %></dd>
-        <% end %>
-      </dl>
-    </details>
   </footer>
 </article>

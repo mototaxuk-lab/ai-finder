@@ -1,0 +1,67 @@
+<% content_for :title, "#{@tool.name} — AI Finder" %>
+
+<article class="detail">
+  <%= link_to "← back", :back, class: "back-link" %>
+
+  <header class="detail-head">
+    <h1 class="detail-name"><%= @tool.name %></h1>
+    <% if @tool.provider.present? %>
+      <p class="detail-provider">by <%= @tool.provider %></p>
+    <% end %>
+    <% if @tool.categories.any? %>
+      <p class="detail-cats">
+        <% @tool.categories.ordered.each do |c| %>
+          <%= link_to c.display_name, search_path(category: c.slug), class: "chip" %>
+        <% end %>
+      </p>
+    <% end %>
+  </header>
+
+  <% if @tool.why_this_one.present? %>
+    <p class="detail-why"><%= @tool.why_this_one %></p>
+  <% end %>
+
+  <ul class="detail-labels">
+    <li class="label">💸 <%= @tool.display_price_label %></li>
+    <li class="label">🔒 <%= @tool.display_privacy_label %></li>
+    <li class="label">🛠️ <%= @tool.display_ease_label %></li>
+  </ul>
+
+  <% if @tool.website_url.present? %>
+    <p><%= link_to "Visit #{@tool.name} →", @tool.website_url, target: "_blank", rel: "noopener", class: "visit-btn" %></p>
+  <% end %>
+
+  <section class="specs-block">
+    <h2 class="specs-title">The full specs</h2>
+    <dl class="specs">
+      <dt>Free app for individuals</dt><dd><%= @tool.consumer_free_app? ? "Yes" : "No" %></dd>
+      <dt>Free API tier</dt><dd><%= @tool.api_free_tier? ? "Yes" : "No" %></dd>
+      <dt>Runs on your computer</dt><dd><%= @tool.runs_locally? ? "Yes" : "No" %></dd>
+      <dt>Data retention</dt><dd><%= @tool.data_retention.humanize %></dd>
+
+      <% if @tool.context_window.present? %>
+        <dt>Context window</dt><dd><%= number_with_delimiter(@tool.context_window) %> tokens</dd>
+      <% end %>
+
+      <% if @tool.input_usd_per_m.present? || @tool.output_usd_per_m.present? %>
+        <dt>API price</dt>
+        <dd>
+          <% parts = [] %>
+          <% parts << "$#{@tool.input_usd_per_m} in" if @tool.input_usd_per_m.present? %>
+          <% parts << "$#{@tool.output_usd_per_m} out" if @tool.output_usd_per_m.present? %>
+          <%= parts.join(" / ") %> <%= @tool.pricing_unit %>
+        </dd>
+      <% elsif @tool.price_low_usd.present? %>
+        <dt>Price</dt>
+        <dd>$<%= @tool.price_low_usd %><%= " – $#{@tool.price_high_usd}" if @tool.price_high_usd.present? %> <%= @tool.pricing_unit %></dd>
+      <% end %>
+    </dl>
+  </section>
+
+  <footer class="detail-foot">
+    <% if @tool.last_verified.present? %>
+      <p class="last-checked">Last checked <%= @tool.last_verified.strftime("%-d %b %Y") %><%= ", pricing confidence: #{@tool.data_pricing_confidence}" if @tool.data_pricing_confidence.present? %>.</p>
+    <% end %>
+    <p class="disclaimer">Prices and privacy policies change — always confirm on the tool's own site before relying on this.</p>
+  </footer>
+</article>

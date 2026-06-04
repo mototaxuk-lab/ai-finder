@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AI Finder — Google for AI</title>
+    <title><%= content_for?(:title) ? yield(:title) : "AI Finder — Google for AI" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,6 +16,8 @@
       <span class="brand-tag">tell us what you need, in plain English</span>
     </header>
     <main class="container">
+      <% if flash[:alert] %><p class="flash flash-alert"><%= flash[:alert] %></p><% end %>
+      <% if flash[:notice] %><p class="flash flash-notice"><%= flash[:notice] %></p><% end %>
       <%= yield %>
     </main>
     <footer class="site-footer">
