@@ -68,6 +68,12 @@ bin/rails runner db/seeds/generate_catalogue.rb
 
 The seed importer (`db/seeds.rb`) is idempotent — re-running never duplicates tools or category links. Figures in the starter CSV are *reasonable approximations* (see the `data_pricing_confidence` column); curate before any real launch.
 
+### Automated freshness (optional, human-in-the-loop)
+
+A scheduled GitHub Action (`.github/workflows/catalogue-freshness.yml`) runs `script/freshness.rb` daily: it asks Claude (with web search) for each tool's current pricing/policy figures and **opens a PR** proposing edits to `catalogue_review.csv`, with per-tool source + confidence notes. It **never** edits the live seed catalogue — you review and merge, then copy verified rows into the seed CSV. Requires the `ANTHROPIC_API_KEY` repo secret on an account with API credit. Run it manually anytime from the Actions tab.
+
+This is deliberately a *draft → human review* loop, not blind auto-commit: machine-scraped figures are low-confidence, and a wrong "free"/"private" label is worse than none.
+
 ## Not yet (deliberately deferred)
 
-User accounts · a real ranking algorithm (weighted-random stands in) · admin UI (edit via seed/console) · scraping/freshness jobs · event-log wiring · deployment.
+User accounts · a real ranking algorithm (weighted-random stands in) · admin UI (edit via seed/console) · deployment.
