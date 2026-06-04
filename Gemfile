@@ -50,9 +50,6 @@ gem "anthropic", "~> 1.0"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
-
-  # Loads ANTHROPIC_API_KEY from a gitignored .env for local dev/test.
-  gem "dotenv-rails"
 end
 
 group :development do
