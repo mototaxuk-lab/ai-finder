@@ -7,6 +7,10 @@ breaking changes).
 
 ## [Unreleased]
 
+_Nothing yet._
+
+## [0.2.0] — 2026-06-09
+
 ### Added
 - Human reviews: a `Review` model tied to a tool, a "Read our review" link on
   result cards and the tool detail page when a published review exists, and a
@@ -57,5 +61,6 @@ recommendations, built on Rails + PostgreSQL.
   keyword parser and still works.
 - Catalogue figures are reasonable approximations pending human curation.
 
-[Unreleased]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/mototaxuk-lab/ai-finder/releases/tag/v0.1.0
