@@ -159,3 +159,27 @@ a:hover { text-decoration: underline; }
 .detail-foot { margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; }
 .last-checked { margin: 0 0 0.3rem; }
 .disclaimer { margin: 0; }
+
+/* ---- compare ---- */
+.compare-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.compare-table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+.compare-table th, .compare-table td {
+  text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.compare-table tbody tr:last-child td, .compare-table tbody tr:last-child th { border-bottom: 0; }
+.compare-rowhead { color: var(--muted); font-weight: 600; white-space: nowrap; background: #fafafa; }
+.compare-colhead { font-size: 1.05rem; min-width: 150px; }
+.compare-colhead a { font-weight: 700; }
+.compare-remove { display: block; font-size: 0.75rem; color: var(--muted); font-weight: 400; margin-top: 0.15rem; }
+.compare-remove:hover { color: #b91c1c; }
+
+.compare-add { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 1.2rem 0 0; }
+.compare-with { margin: 1.2rem 0; padding: 0.9rem 1rem; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+.compare-add-label { font-weight: 600; }
+.compare-select { padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: 8px; font-size: 0.9rem; background: #fff; }
+.compare-add-btn {
+  padding: 0.5rem 1rem; border: 0; border-radius: 8px; font-weight: 600; cursor: pointer;
+  color: #fff; background-image: linear-gradient(115deg, #4f6ef7, #ec4899);
+}
+.compare-add-btn:hover { filter: brightness(1.05); }

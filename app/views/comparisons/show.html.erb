@@ -1,0 +1,73 @@
+<% content_for :title, "Compare tools — AI Finder" %>
+
+<section class="results-head">
+  <%= link_to "← new search", root_path, class: "back-link" %>
+  <h1 class="results-title">Comparing <%= pluralize(@tools.size, "tool") %></h1>
+  <p class="interpretation">An honest side-by-side. Figures are our last-checked estimates — confirm on each tool's own site.</p>
+</section>
+
+<%
+  rows = [
+    ["Provider",                ->(t) { t.provider.presence || "—" }],
+    ["Price",                   ->(t) { t.display_price_label }],
+    ["API price",               ->(t) { t.price_summary }],
+    ["Privacy",                 ->(t) { t.display_privacy_label }],
+    ["Ease of setup",           ->(t) { t.display_ease_label }],
+    ["Free app for individuals",->(t) { t.consumer_free_app? ? "Yes" : "No" }],
+    ["Runs on your computer",   ->(t) { t.runs_locally? ? "Yes" : "No" }],
+    ["Data retention",          ->(t) { t.data_retention.humanize }],
+    ["Context window",          ->(t) { t.context_window ? "#{number_with_delimiter(t.context_window)} tokens" : "—" }],
+    ["Last checked",            ->(t) { t.last_verified&.strftime("%-d %b %Y") || "—" }],
+  ]
+%>
+
+<div class="compare-scroll">
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th class="compare-rowhead"></th>
+        <% @tools.each do |tool| %>
+          <th class="compare-colhead">
+            <%= link_to tool.name, tool_path(tool) %>
+            <% if @tools.size > 1 %>
+              <%= link_to "remove", compare_path(ids: @ids_param, remove: tool.id), class: "compare-remove" %>
+            <% end %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% rows.each do |label, value| %>
+        <tr>
+          <th class="compare-rowhead" scope="row"><%= label %></th>
+          <% @tools.each do |tool| %>
+            <td><%= value.call(tool) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <tr>
+        <th class="compare-rowhead" scope="row"></th>
+        <% @tools.each do |tool| %>
+          <td>
+            <% if tool.website_url.present? %>
+              <%= link_to "Visit site →", tool.website_url, target: "_blank", rel: "noopener",
+                    data: { controller: "event-logger", action: "click->event-logger#log",
+                            "event-logger-type-value": "card_click", "event-logger-tool-value": tool.id } %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<% if @room && @addable.any? %>
+  <%= form_with url: compare_path, method: :get, class: "compare-add" do |f| %>
+    <%= f.hidden_field :ids, value: @ids_param %>
+    <%= f.label :add, "Add another tool:", class: "compare-add-label" %>
+    <%= f.select :add, options_from_collection_for_select(@addable, :id, :name), { include_blank: "Choose…" }, class: "compare-select" %>
+    <%= f.submit "Add", class: "compare-add-btn" %>
+  <% end %>
+<% elsif !@room %>
+  <p class="interpretation">That's the max of <%= ComparisonsController::MAX_TOOLS %> tools side by side — remove one to swap.</p>
+<% end %>

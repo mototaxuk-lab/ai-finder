@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "search", to: "search#index"
+  get "compare", to: "comparisons#show"
   resources :tools, only: :show
   resources :events, only: :create
 

@@ -62,6 +62,21 @@ class Tool < ApplicationRecord
     ease_label.presence || "setup varies"
   end
 
+  # Human-readable price, token-based or flat, for the compare table.
+  def price_summary
+    if input_usd_per_m.present? || output_usd_per_m.present?
+      parts = []
+      parts << "$#{input_usd_per_m} in"  if input_usd_per_m.present?
+      parts << "$#{output_usd_per_m} out" if output_usd_per_m.present?
+      [parts.join(" / "), pricing_unit].compact_blank.join(" ")
+    elsif price_low_usd.present?
+      range = price_high_usd.present? ? "$#{price_low_usd}–$#{price_high_usd}" : "$#{price_low_usd}"
+      [range, pricing_unit].compact_blank.join(" ")
+    else
+      "—"
+    end
+  end
+
   private
 
   def retention_blurb

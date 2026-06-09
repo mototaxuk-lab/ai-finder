@@ -33,6 +33,20 @@
                   "event-logger-type-value": "card_click", "event-logger-tool-value": @tool.id } %></p>
   <% end %>
 
+  <% if @similar_tools.any? || @other_tools.any? %>
+    <%= form_with url: compare_path, method: :get, class: "compare-add compare-with" do |f| %>
+      <%= f.hidden_field :ids, value: @tool.id %>
+      <%= f.label :add, "Compare with:", class: "compare-add-label" %>
+      <%= f.select :add,
+            grouped_options_for_select([
+              ["Similar tools", @similar_tools.map { |t| [t.name, t.id] }],
+              ["Other tools",   @other_tools.map { |t| [t.name, t.id] }]
+            ]),
+            { include_blank: "Choose a tool…" }, class: "compare-select" %>
+      <%= f.submit "Compare", class: "compare-add-btn" %>
+    <% end %>
+  <% end %>
+
   <section class="specs-block">
     <h2 class="specs-title">The full specs</h2>
     <dl class="specs">
