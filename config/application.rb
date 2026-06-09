@@ -7,6 +7,9 @@ require "rails/all"
 Bundler.require(*Rails.groups)
 
 module AiFinder
+  # Bump on every release; keep in sync with CHANGELOG.md.
+  VERSION = "0.1.0"
+
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
