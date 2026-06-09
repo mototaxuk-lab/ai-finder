@@ -10,8 +10,7 @@ breaking changes).
 ### Changed
 - Result card footer: "Read our review" is right-aligned so "See the full
   specs" and "Visit site" stay consistently left-aligned.
-- Primary buttons (search, Visit, compare) recoloured from blue→pink to a dark
-  purple gradient.
+- "Read our review" button recoloured to dark purple.
 
 ## [0.2.0] — 2026-06-09
 

@@ -61,7 +61,7 @@ a:hover { text-decoration: underline; }
 .search-button {
   padding: 0.85rem 1.5rem; font-size: 1rem; font-weight: 700;
   color: #fff; cursor: pointer; border: 0; border-radius: 12px;
-  background-image: linear-gradient(115deg, #6d28d9, #4c1d95);
+  background-image: linear-gradient(115deg, #4f6ef7, #ec4899);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   transition: box-shadow 0.15s ease;
 }
@@ -147,11 +147,11 @@ a:hover { text-decoration: underline; }
 .card-link { font-weight: 600; }
 .card-review {
   margin-left: auto; /* push to the right edge; specs/visit stay left */
-  font-weight: 700; color: #b45309;
-  background: #fffbeb; border: 1px solid #fde68a; border-radius: 999px;
+  font-weight: 700; color: #fff;
+  background: #5b21b6; border: 1px solid #4c1d95; border-radius: 999px;
   padding: 0.2rem 0.7rem; font-size: 0.85rem;
 }
-.card-review:hover { text-decoration: none; background: #fef3c7; }
+.card-review:hover { text-decoration: none; background: #4c1d95; }
 .detail-review-link { margin: 0 0 1.2rem; font-weight: 600; }
 
 /* ---- review page ---- */
@@ -185,7 +185,7 @@ a:hover { text-decoration: underline; }
 .detail-labels { list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; gap: 0.4rem; }
 .visit-btn {
   display: inline-block; padding: 0.7rem 1.2rem; border-radius: 10px; font-weight: 700;
-  color: #fff; background-image: linear-gradient(115deg, #6d28d9, #4c1d95);
+  color: #fff; background-image: linear-gradient(115deg, #4f6ef7, #ec4899);
   box-shadow: 0 2px 6px rgba(0,0,0,0.12);
 }
 .visit-btn:hover { text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.16); }
@@ -221,6 +221,6 @@ a:hover { text-decoration: underline; }
 .compare-select { padding: 0.5rem 0.6rem; border: 1px solid var(--line); border-radius: 8px; font-size: 0.9rem; background: #fff; }
 .compare-add-btn {
   padding: 0.5rem 1rem; border: 0; border-radius: 8px; font-weight: 600; cursor: pointer;
-  color: #fff; background-image: linear-gradient(115deg, #6d28d9, #4c1d95);
+  color: #fff; background-image: linear-gradient(115deg, #4f6ef7, #ec4899);
 }
 .compare-add-btn:hover { filter: brightness(1.05); }
