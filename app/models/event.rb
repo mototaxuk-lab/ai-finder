@@ -3,7 +3,13 @@ class Event < ApplicationRecord
   self.record_timestamps = true
 
   enum :event_type,
-       { search: "search", card_click: "card_click", specs_expand: "specs_expand" },
+       {
+         search:        "search",
+         card_click:    "card_click",
+         specs_expand:  "specs_expand",
+         feedback_up:   "feedback_up",
+         feedback_down: "feedback_down"
+       },
        prefix: :event
 
   belongs_to :clicked_tool, class_name: "Tool", foreign_key: :clicked_tool_id, optional: true

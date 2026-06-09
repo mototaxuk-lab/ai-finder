@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  ALLOWED_TYPES = %w[card_click specs_expand search].freeze
+  ALLOWED_TYPES = %w[card_click specs_expand search feedback_up feedback_down].freeze
 
   # Lightweight client-side logging (e.g. an outbound "Visit site" click).
   # Always returns 204 — a logging failure must never surface to the user.

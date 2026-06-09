@@ -125,6 +125,19 @@ a:hover { text-decoration: underline; }
 .card-link { font-weight: 600; }
 .card-visit { color: var(--muted); font-size: 0.9rem; }
 
+/* ---- card feedback ---- */
+.card-feedback {
+  margin-top: 0.9rem; padding-top: 0.7rem; border-top: 1px solid var(--line);
+  font-size: 0.85rem; color: var(--muted);
+}
+.feedback-prompt { display: inline-flex; align-items: center; gap: 0.35rem; }
+.fb-btn {
+  border: 1px solid var(--line); background: #fff; border-radius: 8px;
+  padding: 0.15rem 0.5rem; font-size: 0.95rem; cursor: pointer; line-height: 1;
+}
+.fb-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+.feedback-thanks { color: #15803d; font-weight: 600; }
+
 /* ---- flash ---- */
 .flash { padding: 0.6rem 0.9rem; border-radius: 8px; font-size: 0.9rem; margin-bottom: 1rem; }
 .flash-alert { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
