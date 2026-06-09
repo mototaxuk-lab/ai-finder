@@ -7,7 +7,9 @@ breaking changes).
 
 ## [Unreleased]
 
-_Nothing yet._
+### Changed
+- Result card footer: "Read our review" is right-aligned so "See the full
+  specs" and "Visit site" stay consistently left-aligned.
 
 ## [0.2.0] — 2026-06-09
 

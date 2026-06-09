@@ -146,6 +146,7 @@ a:hover { text-decoration: underline; }
 .card-foot { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
 .card-link { font-weight: 600; }
 .card-review {
+  margin-left: auto; /* push to the right edge; specs/visit stay left */
   font-weight: 700; color: #b45309;
   background: #fffbeb; border: 1px solid #fde68a; border-radius: 999px;
   padding: 0.2rem 0.7rem; font-size: 0.85rem;
