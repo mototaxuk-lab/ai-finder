@@ -80,3 +80,66 @@ end
 
 puts "Tools: #{Tool.count} (imported/updated #{imported})"
 puts "Tool-category links: #{ToolCategory.count}"
+
+# ---------------------------------------------------------------------------
+# Blog posts (the "Latest in AI" section). Idempotent on :slug.
+# ---------------------------------------------------------------------------
+POSTS = [
+  {
+    slug: "spring-2026-chat-assistants",
+    title: "Spring 2026: the big chat assistants all leveled up",
+    published_at: Time.zone.parse("2026-06-02 09:00"),
+    excerpt: "ChatGPT, Claude and Gemini each shipped updates in recent weeks. Here's what actually matters for everyday use — and what's just noise.",
+    body: <<~BODY
+      It's been a busy few weeks. The three assistants most people reach for all pushed updates, and the marketing is, as ever, louder than the real-world difference.
+
+      For everyday writing, chatting and quick answers, the gap between them is now small — pick the one that fits where you already work. The bigger differences show up at the edges: very long documents, careful step-by-step reasoning, and how each one handles your data.
+
+      Our take: don't chase the leaderboard. Decide what you actually need (free? private? good at long writing?), then let those requirements narrow the field. That's exactly what the search box at the top of this page is for.
+    BODY
+  },
+  {
+    slug: "local-ai-good-enough",
+    title: "Local AI is finally good enough for real work",
+    published_at: Time.zone.parse("2026-05-26 09:00"),
+    excerpt: "Tools like Ollama and LM Studio let you run capable models on your own laptop — private, free, and offline. Here's where they shine and where they don't.",
+    body: <<~BODY
+      A year ago, running a model on your own machine was a fun experiment. Today it's genuinely useful for a lot of everyday tasks — drafting, summarising, brainstorming — without anything leaving your computer.
+
+      The trade-off is setup and horsepower. You'll need a reasonably modern machine, and the very best quality still lives in the big cloud models. But if privacy or cost matters more than squeezing out the last 10% of quality, local is a real option now.
+
+      If that's you, search for something like "a chatbot I can run offline on my own machine" and we'll show only the tools that actually qualify.
+    BODY
+  },
+  {
+    slug: "what-free-really-means",
+    title: "What 'free' really means across AI tools",
+    published_at: Time.zone.parse("2026-05-19 09:00"),
+    excerpt: "A free tier can mean anything from 'genuinely generous' to 'bait'. Here's the honest version for the kinds of tools in our catalogue.",
+    body: <<~BODY
+      "Free" is doing a lot of work in AI marketing. Sometimes it means a generous everyday allowance. Sometimes it means a trial that runs out in an afternoon. Sometimes it means free for you, because you (and your data) are the product.
+
+      We split the difference two ways: is there a genuinely free app for individuals, and separately, is there a free API tier for builders? They're not the same thing, and most people only care about the first.
+
+      When you ask for something "free" in the search box, we filter to the free consumer app — not the API — so the results match what you actually meant.
+    BODY
+  },
+  {
+    slug: "private-transcription-options",
+    title: "Transcription without sending your audio to the cloud",
+    published_at: Time.zone.parse("2026-05-12 09:00"),
+    excerpt: "If you're transcribing interviews or sensitive recordings, where your audio goes matters. The privacy-first options, explained.",
+    body: <<~BODY
+      Transcription is one of the clearest cases where privacy really matters — interviews, medical notes, legal recordings. Many popular services upload your audio to their servers and keep it.
+
+      The good news: open-source transcription you run locally has become both accurate and approachable. If you're comfortable with a little setup, you can transcribe entirely on your own machine.
+
+      Try "transcribe my interviews without my data being kept" — we'll drop anything that keeps your recordings and show only what genuinely fits.
+    BODY
+  }
+].freeze
+
+POSTS.each do |attrs|
+  Post.find_or_initialize_by(slug: attrs[:slug]).update!(attrs)
+end
+puts "Posts: #{Post.count}"

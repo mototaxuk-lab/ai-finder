@@ -1,0 +1,19 @@
+<% content_for :title, "#{@post.title} — AI Finder" %>
+
+<article class="post">
+  <%= link_to "← all posts", posts_path, class: "back-link" %>
+  <h1 class="post-detail-title"><%= @post.title %></h1>
+  <% if @post.published_at %>
+    <p class="post-date"><%= @post.published_at.strftime("%-d %b %Y") %></p>
+  <% end %>
+
+  <div class="post-body">
+    <% if @post.body.present? %>
+      <%= simple_format(@post.body) %>
+    <% elsif @post.excerpt.present? %>
+      <%= simple_format(@post.excerpt) %>
+    <% end %>
+  </div>
+
+  <p class="post-cta"><%= link_to "Find a tool for this →", root_path %></p>
+</article>

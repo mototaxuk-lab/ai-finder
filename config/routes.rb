@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "compare", to: "comparisons#show"
   resources :tools, only: :show
   resources :events, only: :create
+  resources :posts, only: [:index, :show], path: "blog"
 
   # Defines the root path route ("/")
   root "pages#home"

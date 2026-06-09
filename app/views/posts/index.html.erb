@@ -1,0 +1,22 @@
+<% content_for :title, "Latest in AI — AI Finder" %>
+
+<section class="results-head">
+  <%= link_to "← home", root_path, class: "back-link" %>
+  <h1 class="results-title">Latest in AI</h1>
+  <p class="interpretation">Plain-English notes on new releases and what actually changed for everyday users.</p>
+</section>
+
+<% if @posts.any? %>
+  <div class="post-list">
+    <% @posts.each do |post| %>
+      <article class="post-card">
+        <% if post.published_at %><p class="post-date"><%= post.published_at.strftime("%-d %b %Y") %></p><% end %>
+        <h2 class="post-title"><%= link_to post.title, post_path(post) %></h2>
+        <% if post.excerpt.present? %><p class="post-excerpt"><%= post.excerpt %></p><% end %>
+        <%= link_to "Read more →", post_path(post), class: "post-readmore" %>
+      </article>
+    <% end %>
+  </div>
+<% else %>
+  <p class="interpretation">No posts yet — check back soon.</p>
+<% end %>

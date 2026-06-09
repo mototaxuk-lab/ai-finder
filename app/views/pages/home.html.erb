@@ -23,3 +23,21 @@
     <% end %>
   </div>
 </section>
+
+<% if @recent_posts.any? %>
+  <section class="blog-preview">
+    <div class="section-head">
+      <h2 class="browse-title">Latest in AI</h2>
+      <%= link_to "See all →", posts_path, class: "section-all" %>
+    </div>
+    <div class="post-list">
+      <% @recent_posts.each do |post| %>
+        <article class="post-card">
+          <% if post.published_at %><p class="post-date"><%= post.published_at.strftime("%-d %b %Y") %></p><% end %>
+          <h3 class="post-title"><%= link_to post.title, post_path(post) %></h3>
+          <% if post.excerpt.present? %><p class="post-excerpt"><%= post.excerpt %></p><% end %>
+        </article>
+      <% end %>
+    </div>
+  </section>
+<% end %>
