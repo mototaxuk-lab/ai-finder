@@ -22,15 +22,4 @@
                     "event-logger-type-value": "card_click", "event-logger-tool-value": tool.id } %>
     <% end %>
   </footer>
-
-  <div class="card-feedback" data-controller="feedback"
-       data-feedback-tool-value="<%= tool.id %>"
-       data-feedback-query-value="<%= local_assigns[:query] %>">
-    <span class="feedback-prompt" data-feedback-target="prompt">
-      Helpful?
-      <button type="button" class="fb-btn" data-action="feedback#up" aria-label="Helpful">👍</button>
-      <button type="button" class="fb-btn" data-action="feedback#down" aria-label="Not helpful">👎</button>
-    </span>
-    <span class="feedback-thanks" data-feedback-target="thanks" hidden>Thanks — noted ✓</span>
-  </div>
 </article>
