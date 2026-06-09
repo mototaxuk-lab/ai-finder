@@ -7,7 +7,12 @@ breaking changes).
 
 ## [Unreleased]
 
-_Nothing yet._
+### Added
+- Human reviews: a `Review` model tied to a tool, a "Read our review" link on
+  result cards and the tool detail page when a published review exists, and a
+  per-review page (`/reviews/:slug`) with a star rating. Seeded a sample Claude
+  Code review linked from the Claude card. Reviews are preloaded to avoid N+1
+  on results pages.
 
 ## [0.1.0] — 2026-06-09
 

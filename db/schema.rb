@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_09_120001) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_09_120002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_120001) do
     t.datetime "updated_at", null: false
     t.index ["published_at"], name: "index_posts_on_published_at"
     t.index ["slug"], name: "index_posts_on_slug", unique: true
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "tool_id", null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.string "byline"
+    t.integer "rating"
+    t.text "body"
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_reviews_on_slug", unique: true
+    t.index ["tool_id"], name: "index_reviews_on_tool_id"
   end
 
   create_table "tool_categories", force: :cascade do |t|
@@ -96,6 +110,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_120001) do
   end
 
   add_foreign_key "events", "tools", column: "clicked_tool_id"
+  add_foreign_key "reviews", "tools"
   add_foreign_key "tool_categories", "categories"
   add_foreign_key "tool_categories", "tools"
 end

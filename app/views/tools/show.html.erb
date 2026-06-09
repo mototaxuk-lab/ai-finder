@@ -27,6 +27,10 @@
     <li class="label">🛠️ <%= @tool.display_ease_label %></li>
   </ul>
 
+  <% if (review = @tool.display_review) %>
+    <p class="detail-review-link"><%= link_to "★ Read our review of #{@tool.name} →", review_path(review) %></p>
+  <% end %>
+
   <% if @tool.website_url.present? %>
     <p><%= link_to "Visit #{@tool.name} →", @tool.website_url, target: "_blank", rel: "noopener", class: "visit-btn",
           data: { controller: "event-logger", action: "click->event-logger#log",

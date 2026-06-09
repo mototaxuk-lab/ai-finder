@@ -43,7 +43,7 @@ class ToolMatcher
   private
 
   def hard_filtered
-    scope = Tool.visible
+    scope = Tool.visible.includes(:reviews)
     scope = scope.free_app   if @need.must_be_free
     scope = scope.private_ok if @need.must_be_private
     scope = scope.local      if @need.must_run_locally
@@ -71,7 +71,7 @@ class ToolMatcher
     end.join(" OR ")
     binds = @need.keywords.each_with_index.to_h { |w, i| [:"w#{i}", "%#{w}%"] }
 
-    Tool.visible.left_joins(:categories).where(conditions, binds).distinct
+    Tool.visible.includes(:reviews).left_joins(:categories).where(conditions, binds).distinct
   end
 
   # Weighted-random sample WITHOUT replacement (spec section 3).

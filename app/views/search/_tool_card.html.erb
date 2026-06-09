@@ -15,6 +15,9 @@
   </ul>
 
   <footer class="card-foot">
+    <% if (review = tool.display_review) %>
+      <%= link_to "★ Read our review", review_path(review), class: "card-review" %>
+    <% end %>
     <%= link_to "See the full specs →", tool_path(tool, from: local_assigns[:from]), class: "card-link" %>
     <% if tool.website_url.present? %>
       <%= link_to "Visit site", tool.website_url, target: "_blank", rel: "noopener", class: "card-visit",

@@ -1,0 +1,31 @@
+<% content_for :title, "#{@review.title} — AI Finder" %>
+
+<article class="review">
+  <%= link_to "← back to #{@tool.name}", tool_path(@tool), class: "back-link" %>
+
+  <h1 class="review-title"><%= @review.title %></h1>
+
+  <p class="review-meta">
+    <% if @review.rating %>
+      <span class="rating" aria-label="<%= @review.rating %> out of 5">
+        <%= "★" * @review.rating %><span class="rating-empty"><%= "★" * (5 - @review.rating) %></span>
+      </span>
+      <span class="rating-num"><%= @review.rating %>/5</span>
+    <% end %>
+    <% if @review.byline.present? %><span class="review-byline"><%= @review.byline %></span><% end %>
+    <% if @review.published_at %><span class="review-date"><%= @review.published_at.strftime("%-d %b %Y") %></span><% end %>
+  </p>
+
+  <div class="post-body">
+    <%= simple_format(@review.body) if @review.body.present? %>
+  </div>
+
+  <footer class="review-foot">
+    <%= link_to "See #{@tool.name}'s full specs →", tool_path(@tool), class: "card-link" %>
+    <% if @tool.website_url.present? %>
+      <%= link_to "Visit #{@tool.name}", @tool.website_url, target: "_blank", rel: "noopener", class: "card-visit",
+            data: { controller: "event-logger", action: "click->event-logger#log",
+                    "event-logger-type-value": "card_click", "event-logger-tool-value": @tool.id } %>
+    <% end %>
+  </footer>
+</article>

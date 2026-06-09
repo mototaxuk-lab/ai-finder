@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :tools, only: :show
   resources :events, only: :create
   resources :posts, only: [:index, :show], path: "blog"
+  resources :reviews, only: :show
 
   # Defines the root path route ("/")
   root "pages#home"

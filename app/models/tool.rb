@@ -11,6 +11,7 @@ class Tool < ApplicationRecord
 
   has_many :tool_categories, dependent: :destroy
   has_many :categories, through: :tool_categories
+  has_many :reviews, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 
@@ -60,6 +61,12 @@ class Tool < ApplicationRecord
 
   def display_ease_label
     ease_label.presence || "setup varies"
+  end
+
+  # The review to surface, if any. Filters in Ruby so a preloaded :reviews
+  # association doesn't trigger a query per card (avoids N+1 on results pages).
+  def display_review
+    reviews.to_a.select(&:published?).max_by(&:published_at)
   end
 
   # Human-readable price, token-based or flat, for the compare table.
