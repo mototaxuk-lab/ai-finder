@@ -98,30 +98,28 @@ a:hover { text-decoration: underline; }
 }
 .empty-head { font-weight: 700; margin: 0 0 0.4rem; }
 
-/* ---- cards ---- */
+/* ---- cards (vertical list, Google-style) ---- */
 .card-grid {
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  display: flex; flex-direction: column; gap: 1rem;
 }
 .card {
   display: flex; flex-direction: column;
   background: var(--card); border: 1px solid var(--line);
-  border-radius: 14px; padding: 1.1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  border-radius: 14px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
-.card-head { display: flex; align-items: baseline; gap: 0.4rem; flex-wrap: wrap; }
-.card-name { margin: 0; font-size: 1.15rem; }
-.card-provider { color: var(--muted); font-size: 0.8rem; }
-.card-why { color: #374151; font-size: 0.92rem; margin: 0.6rem 0 0.9rem; }
-.card-labels { list-style: none; padding: 0; margin: 0 0 1rem; display: grid; gap: 0.3rem; }
-.label { font-size: 0.85rem; color: #374151; }
-.card-foot { margin-top: auto; display: flex; flex-direction: column; gap: 0.6rem; }
-.card-link { font-weight: 600; }
-.card-specs summary { cursor: pointer; color: var(--muted); font-size: 0.85rem; }
-.specs { margin: 0.6rem 0 0; font-size: 0.85rem; }
-.specs dt { color: var(--muted); margin-top: 0.4rem; }
-.specs dd { margin: 0; }
-
-.card-foot { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; }
+.card:hover { border-color: #d6d9e0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.card-head { display: flex; align-items: baseline; gap: 0.5rem; flex-wrap: wrap; }
+.card-name { margin: 0; font-size: 1.3rem; }
+.card-name a { color: var(--accent); }
+.card-name a:hover { text-decoration: underline; }
+.card-provider { color: var(--muted); font-size: 0.85rem; }
+.card-why { color: #374151; font-size: 0.95rem; margin: 0.5rem 0 0.85rem; max-width: 62ch; }
+.card-labels {
+  list-style: none; padding: 0; margin: 0 0 1rem;
+  display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem;
+}
+.label { font-size: 0.88rem; color: #374151; }
+.card-foot { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
 .card-link { font-weight: 600; }
 .card-visit { color: var(--muted); font-size: 0.9rem; }
 
@@ -155,7 +153,8 @@ a:hover { text-decoration: underline; }
 }
 .specs-title { font-size: 1.1rem; margin: 0 0 0.5rem; }
 .specs-block .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1rem 1rem; font-size: 0.92rem; }
-.specs-block .specs dt { margin-top: 0.5rem; }
+.specs-block .specs dt { margin-top: 0.5rem; color: var(--muted); }
+.specs-block .specs dd { margin: 0; }
 .detail-foot { margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; }
 .last-checked { margin: 0 0 0.3rem; }
 .disclaimer { margin: 0; }

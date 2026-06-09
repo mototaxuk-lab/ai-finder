@@ -1,6 +1,6 @@
 <article class="card">
   <header class="card-head">
-    <h3 class="card-name"><%= tool.name %></h3>
+    <h3 class="card-name"><%= link_to tool.name, tool_path(tool, from: local_assigns[:from]) %></h3>
     <% if tool.provider.present? %><span class="card-provider">by <%= tool.provider %></span><% end %>
   </header>
 
