@@ -32,6 +32,7 @@
   <% end %>
 
   <div class="card-grid">
-    <%= render partial: "search/tool_card", collection: @tools, as: :tool %>
+    <%= render partial: "search/tool_card", collection: @tools, as: :tool,
+          locals: { from: @tools.map(&:id).join(",") } %>
   </div>
 <% end %>

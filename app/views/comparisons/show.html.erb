@@ -30,7 +30,7 @@
           <th class="compare-colhead">
             <%= link_to tool.name, tool_path(tool) %>
             <% if @tools.size > 1 %>
-              <%= link_to "remove", compare_path(ids: @ids_param, remove: tool.id), class: "compare-remove" %>
+              <%= link_to "remove", compare_path(ids: @ids_param, remove: tool.id, from: @from), class: "compare-remove" %>
             <% end %>
           </th>
         <% end %>
@@ -61,13 +61,19 @@
   </table>
 </div>
 
-<% if @room && @addable.any? %>
+<% if @room && @addable&.any? %>
   <%= form_with url: compare_path, method: :get, class: "compare-add" do |f| %>
     <%= f.hidden_field :ids, value: @ids_param %>
-    <%= f.label :add, "Add another tool:", class: "compare-add-label" %>
+    <%= f.hidden_field :from, value: @from %>
+    <%= f.label :add, (@from.present? ? "Add another from your search:" : "Add another tool:"), class: "compare-add-label" %>
     <%= f.select :add, options_from_collection_for_select(@addable, :id, :name), { include_blank: "Choose…" }, class: "compare-select" %>
     <%= f.submit "Add", class: "compare-add-btn" %>
   <% end %>
+  <% if @from.present? %>
+    <p class="interpretation"><%= link_to "Compare against the whole catalogue instead", compare_path(ids: @ids_param) %>.</p>
+  <% end %>
+<% elsif @room && @from.present? %>
+  <p class="interpretation">You're comparing all the tools from your search. <%= link_to "Add others from the catalogue", compare_path(ids: @ids_param) %>.</p>
 <% elsif !@room %>
   <p class="interpretation">That's the max of <%= ComparisonsController::MAX_TOOLS %> tools side by side — remove one to swap.</p>
 <% end %>

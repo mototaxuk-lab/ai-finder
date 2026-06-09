@@ -19,6 +19,16 @@ class ComparisonsController < ApplicationController
 
     @ids_param = @tools.map(&:id).join(",")
     @room      = @tools.size < MAX_TOOLS
-    @addable   = Tool.visible.where.not(id: @tools.map(&:id)).order(:name) if @room
+
+    # `from` (the prior search results) scopes which tools can be added, so a
+    # comparison started from a search stays within those recommendations.
+    @from    = params[:from].to_s
+    from_ids = @from.split(",").map(&:to_i).reject(&:zero?)
+
+    if @room
+      scope = Tool.visible.where.not(id: @tools.map(&:id))
+      scope = scope.where(id: from_ids) if from_ids.any?
+      @addable = scope.order(:name)
+    end
   end
 end

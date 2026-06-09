@@ -33,7 +33,17 @@
                   "event-logger-type-value": "card_click", "event-logger-tool-value": @tool.id } %></p>
   <% end %>
 
-  <% if @similar_tools.any? || @other_tools.any? %>
+  <% if @compare_scope == :results && @result_tools.any? %>
+    <%= form_with url: compare_path, method: :get, class: "compare-add compare-with" do |f| %>
+      <%= f.hidden_field :ids, value: @tool.id %>
+      <%= f.hidden_field :from, value: @from %>
+      <%= f.label :add, "Compare with another result:", class: "compare-add-label" %>
+      <%= f.select :add,
+            options_from_collection_for_select(@result_tools, :id, :name),
+            { include_blank: "Choose a tool…" }, class: "compare-select" %>
+      <%= f.submit "Compare", class: "compare-add-btn" %>
+    <% end %>
+  <% elsif @compare_scope == :catalogue && (@similar_tools.any? || @other_tools.any?) %>
     <%= form_with url: compare_path, method: :get, class: "compare-add compare-with" do |f| %>
       <%= f.hidden_field :ids, value: @tool.id %>
       <%= f.label :add, "Compare with:", class: "compare-add-label" %>
