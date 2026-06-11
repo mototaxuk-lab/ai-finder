@@ -81,12 +81,6 @@ The CSVs in `db/seeds/` are the single source of truth, and GitHub's web UI is t
 
 House rules: a wrong "free"/"private" label is worse than none — when unsure, set `data_pricing_confidence` to `low`; update `last_verified` whenever you actually re-check a figure; only verified model lineups belong in `model_variants.csv`. Run the lint locally anytime with `ruby script/validate_catalogue.rb`.
 
-### Automated freshness (optional, human-in-the-loop)
-
-A scheduled GitHub Action (`.github/workflows/catalogue-freshness.yml`) runs `script/freshness.rb` daily: it asks Claude (with web search) for each tool's current pricing/policy figures and **opens a PR** proposing edits to `catalogue_review.csv`, with per-tool source + confidence notes. It **never** edits the live seed catalogue — you review and merge, then copy verified rows into the seed CSV. Requires the `ANTHROPIC_API_KEY` repo secret on an account with API credit. Run it manually anytime from the Actions tab.
-
-This is deliberately a *draft → human review* loop, not blind auto-commit: machine-scraped figures are low-confidence, and a wrong "free"/"private" label is worse than none.
-
 ## Not yet (deliberately deferred)
 
 User accounts · a real ranking algorithm (weighted-random stands in) · admin UI (edit via seed/console) · deployment.

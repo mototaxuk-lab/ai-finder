@@ -32,6 +32,12 @@ breaking changes).
   specs" and "Visit site" stay consistently left-aligned.
 - "Read our review" button recoloured to dark purple.
 
+### Removed
+- The daily Claude + web-search freshness Action (`script/freshness.rb` and
+  `.github/workflows/catalogue-freshness.yml`). Catalogue curation is now done
+  by trusted collaborators editing the seed files directly on GitHub, guarded
+  by the catalogue lint on PRs — so the automated-PR loop is redundant.
+
 ## [0.2.0] — 2026-06-09
 
 ### Added
