@@ -7,6 +7,26 @@ breaking changes).
 
 ## [Unreleased]
 
+### Added
+- Collaborator editing via GitHub: the seed CSVs are the editing surface
+  (GitHub web editor → auto-PR), guarded by a catalogue lint
+  (`script/validate_catalogue.rb` + a PR workflow) that checks headers,
+  allowed values, score ranges and cross-references.
+- Human reviews now live as markdown files with front matter in
+  `db/seeds/reviews/`, imported idempotently by `db/seeds.rb` — so reviews are
+  written and edited the same way as the catalogue.
+- Model variants: individual models under a product (e.g. Claude → Fable 5 /
+  Opus 4.8 / Sonnet 4.6 / Haiku 4.5), with per-model API pricing, context
+  window, a "best for" line, and their own `last_verified` date. Shown as
+  compact chips on result cards (price/best-for in the tooltip) and as a
+  "Models & pricing" table on the tool detail page. Seeded from
+  `db/seeds/model_variants.csv` (idempotent); only verified lineups belong in
+  the CSV, and tools without variants simply omit the row. Seeded with
+  web-verified lineups for seven tools (Claude, ChatGPT, Google Gemini,
+  DeepSeek, Llama, Mistral Le Chat, Whisper — 20 variants). Variants are
+  preloaded with results to avoid N+1. Search still matches at the product
+  level — variants are evidence, not results.
+
 ### Changed
 - Result card footer: "Read our review" is right-aligned so "See the full
   specs" and "Visit site" stay consistently left-aligned.

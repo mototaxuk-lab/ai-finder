@@ -1,0 +1,29 @@
+name: Catalogue lint
+
+# Validates the hand-edited seed data (catalogue CSV, model variants CSV, and
+# review markdown files) on every PR that touches it: headers, allowed values,
+# score ranges, and cross-references. Keeps web-editor typos from reaching a
+# human reviewer.
+
+on:
+  pull_request:
+    paths:
+      - "db/seeds/**"
+      - "script/validate_catalogue.rb"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Lint catalogue data
+        run: ruby script/validate_catalogue.rb

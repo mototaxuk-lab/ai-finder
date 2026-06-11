@@ -68,6 +68,19 @@ bin/rails runner db/seeds/generate_catalogue.rb
 
 The seed importer (`db/seeds.rb`) is idempotent — re-running never duplicates tools or category links. Figures in the starter CSV are *reasonable approximations* (see the `data_pricing_confidence` column); curate before any real launch.
 
+Model variants (individual models under a product, e.g. Claude → Sonnet / Opus / Fable) are seeded the same way from `db/seeds/model_variants.csv`. Only verified lineups belong in that file — cards simply omit the models row for tools without variants.
+
+### Editing the catalogue (collaborators)
+
+The CSVs in `db/seeds/` are the single source of truth, and GitHub's web UI is the editor — no git tooling needed:
+
+1. Open the file on github.com (the catalogue CSV, `model_variants.csv`, or a review in `db/seeds/reviews/`) and click the pencil icon.
+2. Make your edit and click **Propose changes** — GitHub creates a branch + pull request automatically.
+3. CI lints the change (`script/validate_catalogue.rb`: headers, allowed values, score ranges, cross-references). A maintainer reviews the diff and merges.
+4. `bin/rails db:seed` (locally, or on deploy later) applies it to the site.
+
+House rules: a wrong "free"/"private" label is worse than none — when unsure, set `data_pricing_confidence` to `low`; update `last_verified` whenever you actually re-check a figure; only verified model lineups belong in `model_variants.csv`. Run the lint locally anytime with `ruby script/validate_catalogue.rb`.
+
 ### Automated freshness (optional, human-in-the-loop)
 
 A scheduled GitHub Action (`.github/workflows/catalogue-freshness.yml`) runs `script/freshness.rb` daily: it asks Claude (with web search) for each tool's current pricing/policy figures and **opens a PR** proposing edits to `catalogue_review.csv`, with per-tool source + confidence notes. It **never** edits the live seed catalogue — you review and merge, then copy verified rows into the seed CSV. Requires the `ANTHROPIC_API_KEY` repo secret on an account with API credit. Run it manually anytime from the Actions tab.
