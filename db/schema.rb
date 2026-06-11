@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_09_120002) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_09_130001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,23 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_120002) do
     t.index ["clicked_tool_id"], name: "index_events_on_clicked_tool_id"
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["event_type"], name: "index_events_on_event_type"
+  end
+
+  create_table "model_variants", force: :cascade do |t|
+    t.bigint "tool_id", null: false
+    t.string "name", null: false
+    t.string "model_id_string"
+    t.decimal "input_usd_per_m", precision: 12, scale: 4
+    t.decimal "output_usd_per_m", precision: 12, scale: 4
+    t.string "pricing_unit"
+    t.integer "context_window"
+    t.string "best_for"
+    t.date "last_verified"
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tool_id", "name"], name: "index_model_variants_on_tool_id_and_name", unique: true
+    t.index ["tool_id"], name: "index_model_variants_on_tool_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -110,6 +127,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_120002) do
   end
 
   add_foreign_key "events", "tools", column: "clicked_tool_id"
+  add_foreign_key "model_variants", "tools"
   add_foreign_key "reviews", "tools"
   add_foreign_key "tool_categories", "categories"
   add_foreign_key "tool_categories", "tools"

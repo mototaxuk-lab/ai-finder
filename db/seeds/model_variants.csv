@@ -1,0 +1,21 @@
+tool_name,name,model_id_string,input_usd_per_m,output_usd_per_m,pricing_unit,context_window,best_for,last_verified,position
+ChatGPT,GPT-5.5,gpt-5.5,5,30,per 1M tokens,,flagship; most capable,2026-06-09,1
+ChatGPT,GPT-5.4,gpt-5.4,2.5,15,per 1M tokens,,strong all-rounder at a lower price,2026-06-09,2
+ChatGPT,GPT-5.4 Nano,gpt-5.4-nano,0.2,1.25,per 1M tokens,,fastest and cheapest,2026-06-09,3
+Claude,Claude Fable 5,claude-fable-5,10,50,per 1M tokens,1000000,most capable; premium price,2026-05-26,1
+Claude,Claude Opus 4.8,claude-opus-4-8,5,25,per 1M tokens,1000000,"top tier for long, complex work",2026-05-26,2
+Claude,Claude Sonnet 4.6,claude-sonnet-4-6,3,15,per 1M tokens,1000000,best speed / cost balance,2026-05-26,3
+Claude,Claude Haiku 4.5,claude-haiku-4-5,1,5,per 1M tokens,200000,fastest and cheapest,2026-05-26,4
+DeepSeek,DeepSeek V4 Pro,deepseek-v4-pro,1.74,3.48,per 1M tokens,1000000,strongest reasoning,2026-06-09,1
+DeepSeek,DeepSeek V4 Flash,deepseek-v4-flash,0.14,0.28,per 1M tokens,1000000,everyday tasks at minimal cost,2026-06-09,2
+Google Gemini,Gemini 3.1 Pro (preview),gemini-3.1-pro-preview,2,12,per 1M tokens,,most capable; still in preview,2026-06-09,1
+Google Gemini,Gemini 3.5 Flash,gemini-3.5-flash,1.5,9,per 1M tokens,,fast default for most tasks,2026-06-09,2
+Google Gemini,Gemini 3.1 Flash-Lite,gemini-3.1-flash-lite,0.25,1.5,per 1M tokens,,cheapest for high volume,2026-06-09,3
+Llama,Llama 4 Maverick,llama-4-maverick,,,,1000000,most capable open model,2026-06-09,1
+Llama,Llama 4 Scout,llama-4-scout,,,,10000000,fits one GPU; huge context,2026-06-09,2
+Mistral Le Chat,Mistral Large 3,mistral-large-3-25-12,0.5,1.5,per 1M tokens,,most capable,2026-06-09,1
+Mistral Le Chat,Mistral Medium 3.5,,,,,,fast everyday workhorse,2026-06-09,2
+Whisper,Whisper large-v3,large-v3,,,,,most accurate,2026-06-09,1
+Whisper,Whisper large-v3-turbo,large-v3-turbo,,,,,"near-large accuracy, much faster",2026-06-09,2
+Whisper,Whisper small,small,,,,,light and quick on modest hardware,2026-06-09,3
+Whisper,Whisper tiny,tiny,,,,,fastest; lowest accuracy,2026-06-09,4

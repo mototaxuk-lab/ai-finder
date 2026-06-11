@@ -14,6 +14,17 @@
     <li class="label label-ease">🛠️ <%= tool.display_ease_label %></li>
   </ul>
 
+  <% variants = tool.model_variants.sort_by { |v| [v.position, v.id] } %>
+  <% if variants.any? %>
+    <p class="card-models">
+      <span class="card-models-label">Models:</span>
+      <% variants.each do |variant| %>
+        <span class="model-chip" title="<%= variant.chip_title %>"><%= variant.name %></span>
+      <% end %>
+    </p>
+  <% end %>
+
+
   <footer class="card-foot">
     <%= link_to "See the full specs →", tool_path(tool, from: local_assigns[:from]), class: "card-link" %>
     <% if tool.website_url.present? %>

@@ -12,6 +12,7 @@ class Tool < ApplicationRecord
   has_many :tool_categories, dependent: :destroy
   has_many :categories, through: :tool_categories
   has_many :reviews, dependent: :destroy
+  has_many :model_variants, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
 

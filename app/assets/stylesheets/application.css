@@ -143,6 +143,15 @@ a:hover { text-decoration: underline; }
   display: flex; flex-wrap: wrap; gap: 0.35rem 1.4rem;
 }
 .label { font-size: 0.88rem; color: #374151; }
+.card-models {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem;
+  margin: -0.4rem 0 1rem; font-size: 0.82rem;
+}
+.card-models-label { color: var(--muted); }
+.model-chip {
+  background: #f3f4f6; border: 1px solid var(--line); border-radius: 999px;
+  padding: 0.1rem 0.6rem; color: #374151; cursor: help;
+}
 .card-foot { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
 .card-link { font-weight: 600; }
 .card-review {
@@ -195,6 +204,14 @@ a:hover { text-decoration: underline; }
 }
 .specs-title { font-size: 1.1rem; margin: 0 0 0.5rem; }
 .specs-block .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.1rem 1rem; font-size: 0.92rem; }
+.models-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; margin-top: 0.4rem; }
+.models-table th {
+  text-align: left; color: var(--muted); font-weight: 600;
+  padding: 0.35rem 0.9rem 0.35rem 0; border-bottom: 1px solid var(--line);
+}
+.models-table td { padding: 0.45rem 0.9rem 0.45rem 0; border-bottom: 1px solid var(--line); }
+.models-table .models-name { font-weight: 600; white-space: nowrap; }
+.models-block .last-checked { margin-top: 0.5rem; }
 .specs-block .specs dt { margin-top: 0.5rem; color: var(--muted); }
 .specs-block .specs dd { margin: 0; }
 .detail-foot { margin-top: 1.5rem; color: var(--muted); font-size: 0.85rem; }

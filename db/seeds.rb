@@ -82,6 +82,34 @@ puts "Tools: #{Tool.count} (imported/updated #{imported})"
 puts "Tool-category links: #{ToolCategory.count}"
 
 # ---------------------------------------------------------------------------
+# Model variants (individual models under a product, e.g. Claude → Sonnet /
+# Opus / Fable). Idempotent on [tool, name]. Only lineups we've actually
+# verified belong in this CSV — a wrong price is worse than no variant, and
+# cards simply omit the row for tools without variants.
+# ---------------------------------------------------------------------------
+variants_path = Rails.root.join("db/seeds/model_variants.csv")
+if File.exist?(variants_path)
+  variant_count = 0
+  CSV.foreach(variants_path, headers: true) do |row|
+    tool = Tool.find_by(name: row["tool_name"].to_s.strip)
+    next unless tool
+
+    tool.model_variants.find_or_initialize_by(name: row["name"].to_s.strip).update!(
+      model_id_string:  row["model_id_string"].presence,
+      input_usd_per_m:  row["input_usd_per_m"].presence,
+      output_usd_per_m: row["output_usd_per_m"].presence,
+      pricing_unit:     row["pricing_unit"].presence,
+      context_window:   row["context_window"].presence,
+      best_for:         row["best_for"].presence,
+      last_verified:    row["last_verified"].presence,
+      position:         row["position"].presence || 0
+    )
+    variant_count += 1
+  end
+  puts "Model variants: #{ModelVariant.count} (imported/updated #{variant_count})"
+end
+
+# ---------------------------------------------------------------------------
 # Blog posts (the "Latest in AI" section). Idempotent on :slug.
 # ---------------------------------------------------------------------------
 POSTS = [
