@@ -11,12 +11,13 @@
 # have to: wrong headers, misspelled enum values, scores out of range, a
 # variant or review pointing at a tool that isn't in the catalogue.
 #
-# Self-contained: stdlib only (csv, yaml, date). Exits non-zero with a list of
+# Self-contained: stdlib only (csv, yaml, date, time). Exits non-zero with a list of
 # problems; prints a summary when clean.
 
 require "csv"
 require "yaml"
 require "date"
+require "time" # Time.parse (validating review published_at) — missing this 400'd in CI
 
 ROOT          = File.expand_path("..", __dir__)
 CATALOGUE_CSV = File.join(ROOT, "db/seeds/ai_tool_catalogue_text_models.csv")
