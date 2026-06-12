@@ -37,6 +37,9 @@ breaking changes).
   `.github/workflows/catalogue-freshness.yml`). Catalogue curation is now done
   by trusted collaborators editing the seed files directly on GitHub, guarded
   by the catalogue lint on PRs — so the automated-PR loop is redundant.
+- The `catalogue_review.csv` worksheet and `generate_review_sheet.rb`. It
+  duplicated the seed catalogue and was an easy file to edit by mistake; the
+  single source of truth is now `db/seeds/ai_tool_catalogue_text_models.csv`.
 
 ## [0.2.0] — 2026-06-09
 
