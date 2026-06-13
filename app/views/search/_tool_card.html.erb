@@ -2,6 +2,11 @@
   <header class="card-head">
     <h3 class="card-name"><%= link_to tool.name, tool_path(tool, from: local_assigns[:from]) %></h3>
     <% if tool.provider.present? %><span class="card-provider">by <%= tool.provider %></span><% end %>
+    <% if (v = tool.overall_verdict) %>
+      <span class="verdict-badge" title="Our overall verdict, out of 10"><%= score_number(v) %><span class="verdict-badge-max">/10</span></span>
+    <% else %>
+      <span class="verdict-badge verdict-badge-none" title="No verdict yet">Not yet rated</span>
+    <% end %>
   </header>
 
   <% if tool.why_this_one.present? %>

@@ -29,12 +29,20 @@ CATALOGUE_HEADERS = %w[
   input_usd_per_m output_usd_per_m pricing_unit price_low_usd price_high_usd
   context_window api_free_tier consumer_free_app data_retention runs_locally
   privacy_label price_label ease_label why_this_one
-  quality_score ease_score value_score categories
+  ease_score privacy_score categories
 ].freeze
 
 VARIANT_HEADERS = %w[
   tool_name name model_id_string input_usd_per_m output_usd_per_m
   pricing_unit context_window best_for last_verified position
+  score_text_generation score_email_writing score_logic score_coding
+  score_image_generation score_accuracy
+].freeze
+
+# Per-variant output-quality sub-scores + accuracy (all 1-10, nullable).
+VARIANT_SCORES = %w[
+  score_text_generation score_email_writing score_logic score_coding
+  score_image_generation score_accuracy
 ].freeze
 
 STATUSES    = %w[live dead review].freeze
@@ -113,7 +121,7 @@ catalogue.each.with_index(2) do |row, line|
     check_number(file, label, field, row[field], range: 0..Float::INFINITY)
   end
   check_number(file, label, "context_window", row["context_window"], range: 1..Float::INFINITY, integer: true)
-  %w[quality_score ease_score value_score].each do |field|
+  %w[ease_score privacy_score].each do |field|
     check_number(file, label, field, row[field], range: 1..10, integer: true)
   end
 
@@ -154,6 +162,9 @@ variants.each.with_index(2) do |row, line|
   end
   check_number(file, label, "context_window", row["context_window"], range: 1..Float::INFINITY, integer: true)
   check_number(file, label, "position", row["position"], range: 0..Float::INFINITY, integer: true)
+  VARIANT_SCORES.each do |field|
+    check_number(file, label, field, row[field], range: 1..10, integer: true)
+  end
   check_date(file, label, "last_verified", row["last_verified"])
 end
 

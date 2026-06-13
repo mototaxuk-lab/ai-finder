@@ -12,7 +12,7 @@ class Tool < ApplicationRecord
   has_many :tool_categories, dependent: :destroy
   has_many :categories, through: :tool_categories
   has_many :reviews, dependent: :destroy
-  has_many :model_variants, dependent: :destroy
+  has_many :model_variants, dependent: :destroy, inverse_of: :tool
 
   validates :name, presence: true, uniqueness: true
 
@@ -22,33 +22,24 @@ class Tool < ApplicationRecord
   scope :local,      -> { where(runs_locally: true) }
   scope :private_ok, -> { where(data_retention: %w[none optional]) }
 
-  # Baseline used when a hand-assigned score hasn't been curated yet.
-  # Without this, freshly-imported tools (nil scores) would break the
-  # weighted pick (nil + nil + nil).
-  DEFAULT_SCORE = 5
+  # Neutral baseline so un-scored tools don't sink in the weighted pick.
+  # (Ranking is effectively flat until the team fills in scores.)
+  RANK_BASELINE = 5.0
 
-  def quality
-    quality_score || DEFAULT_SCORE
+  # Headline verdict (1-10) for the scorecard + ranking: the best of this
+  # tool's per-model verdicts. For a tool with no scored variants, fall back to
+  # a product-level verdict from ease + privacy alone. nil = not yet rated.
+  def overall_verdict
+    verdicts = model_variants.map(&:verdict).compact
+    return verdicts.max.round(1) if verdicts.any?
+
+    parts = [ease_score, privacy_score].compact
+    parts.any? ? (parts.sum.to_f / parts.size).round(1) : nil
   end
 
-  def ease
-    ease_score || DEFAULT_SCORE
-  end
-
-  def value
-    value_score || DEFAULT_SCORE
-  end
-
-  # Weight for the weighted-random pick. Optional emphasis bumps a single
-  # dimension (e.g. :value when the user signalled "on a budget").
-  def weight(emphasis: nil)
-    base = quality + ease + value
-    case emphasis
-    when :value   then base + value
-    when :ease    then base + ease
-    when :quality then base + quality
-    else base
-    end
+  # Weight for the weighted-random pick.
+  def rank_weight
+    overall_verdict || RANK_BASELINE
   end
 
   # --- display helpers (graceful fallback for un-curated labels) ---

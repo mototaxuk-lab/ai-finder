@@ -59,9 +59,8 @@ CSV.foreach(csv_path, headers: true) do |row|
     price_label:              row["price_label"].presence,
     ease_label:               row["ease_label"].presence,
     why_this_one:             row["why_this_one"].presence,
-    quality_score:            row["quality_score"].presence,
     ease_score:               row["ease_score"].presence,
-    value_score:              row["value_score"].presence
+    privacy_score:            row["privacy_score"].presence
   )
   tool.save!
 
@@ -102,7 +101,13 @@ if File.exist?(variants_path)
       context_window:   row["context_window"].presence,
       best_for:         row["best_for"].presence,
       last_verified:    row["last_verified"].presence,
-      position:         row["position"].presence || 0
+      position:         row["position"].presence || 0,
+      score_text_generation:  row["score_text_generation"].presence,
+      score_email_writing:    row["score_email_writing"].presence,
+      score_logic:            row["score_logic"].presence,
+      score_coding:           row["score_coding"].presence,
+      score_image_generation: row["score_image_generation"].presence,
+      score_accuracy:         row["score_accuracy"].presence
     )
     variant_count += 1
   end

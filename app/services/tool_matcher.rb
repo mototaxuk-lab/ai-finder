@@ -33,7 +33,7 @@ class ToolMatcher
     end
 
     Result.new(
-      tools: weighted_sample(pool, n: @count, emphasis: @need.emphasis),
+      tools: weighted_sample(pool, n: @count),
       pool_size: pool.size,
       need: @need,
       used_keyword_fallback: used_fallback
@@ -78,18 +78,18 @@ class ToolMatcher
   # The ~80% probability cap from the spec is intentionally deferred for v1:
   # over a small pool, sampling-without-replacement already gives good variety,
   # and a correct cap is fiddly. Revisit if lineups feel stale.
-  def weighted_sample(tools, n:, emphasis: nil)
+  def weighted_sample(tools, n:)
     picked = []
     pool = tools.dup
     n.times do
       break if pool.empty?
 
-      total = pool.sum { |t| t.weight(emphasis: emphasis) }
+      total = pool.sum(&:rank_weight)
       break if total <= 0
 
       r = rand * total
       cum = 0
-      chosen = pool.find { |t| cum += t.weight(emphasis: emphasis); cum >= r } || pool.last
+      chosen = pool.find { |t| cum += t.rank_weight; cum >= r } || pool.last
       picked << chosen
       pool.delete(chosen)
     end

@@ -3,11 +3,37 @@
 # the hard filter and weighted pick operate on tools only, and variants are
 # surfaced on result cards, the detail page, and (later) compare.
 class ModelVariant < ApplicationRecord
-  belongs_to :tool
+  belongs_to :tool, inverse_of: :model_variants
 
   validates :name, presence: true, uniqueness: { scope: :tool_id }
 
   scope :ordered, -> { order(:position, :id) }
+
+  # The five output-quality sub-scores (label => column), 1-10, nullable.
+  OUTPUT_FIELDS = {
+    "Text generation"  => :score_text_generation,
+    "Email writing"    => :score_email_writing,
+    "Logic"            => :score_logic,
+    "Coding"           => :score_coding,
+    "Image generation" => :score_image_generation
+  }.freeze
+
+  # Average of whichever output sub-scores are filled (nil if none yet).
+  def output_quality
+    vals = OUTPUT_FIELDS.values.filter_map { |f| public_send(f) }
+    vals.any? ? vals.sum.to_f / vals.size : nil
+  end
+
+  # Gated verdict (1-10): the average of output quality + the tool's ease &
+  # privacy, then capped by accuracy (a low accuracy score caps everything).
+  # nil = not enough has been scored to form a verdict.
+  def verdict
+    parts = [output_quality, tool.ease_score, tool.privacy_score].compact
+    return nil if parts.empty?
+
+    base = parts.sum.to_f / parts.size
+    score_accuracy ? [base, score_accuracy.to_f].min : base
+  end
 
   # "$3 in / $15 out per 1M tokens" — mirrors Tool#price_summary.
   def price_summary

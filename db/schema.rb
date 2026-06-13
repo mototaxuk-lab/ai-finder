@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_09_130001) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_12_120001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,6 +51,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_130001) do
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score_text_generation"
+    t.integer "score_email_writing"
+    t.integer "score_logic"
+    t.integer "score_coding"
+    t.integer "score_image_generation"
+    t.integer "score_accuracy"
     t.index ["tool_id", "name"], name: "index_model_variants_on_tool_id_and_name", unique: true
     t.index ["tool_id"], name: "index_model_variants_on_tool_id"
   end
@@ -112,13 +118,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_09_130001) do
     t.string "price_label"
     t.string "ease_label"
     t.text "why_this_one"
-    t.integer "quality_score"
     t.integer "ease_score"
-    t.integer "value_score"
     t.text "raw_pricing_text"
     t.text "raw_privacy_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "privacy_score"
     t.index ["consumer_free_app"], name: "index_tools_on_consumer_free_app"
     t.index ["data_retention"], name: "index_tools_on_data_retention"
     t.index ["name"], name: "index_tools_on_name", unique: true

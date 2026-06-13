@@ -77,12 +77,6 @@ class ParsedNeed
     must_be_free || must_be_private || must_run_locally
   end
 
-  # Bump value when the user signalled cost-sensitivity.
-  def emphasis
-    return :value if must_be_free || budget_ceiling_usd_month
-    nil
-  end
-
   # For events.parsed_filters logging (step 8) and the LLM schema (step 5).
   def to_h
     {

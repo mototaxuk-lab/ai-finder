@@ -31,6 +31,17 @@ breaking changes).
 - Result card footer: "Read our review" is right-aligned so "See the full
   specs" and "Visit site" stay consistently left-aligned.
 - "Read our review" button recoloured to dark purple.
+- Reworked the evaluation model around four criteria: **output quality**
+  (average of per-model text-generation / email-writing / logic / coding /
+  image-generation sub-scores), **accuracy & trustworthiness** (a gate — a low
+  score caps the verdict via `min`), **ease of use**, and **privacy & data
+  safety**. Output-quality sub-scores + accuracy live per model variant; ease +
+  privacy per tool. A tool's headline verdict is its best model's verdict, and
+  ranking now weights by it. Old `quality_score`/`value_score` retired.
+- Result cards show an overall-verdict badge; the detail page gains an "Our
+  verdict" scorecard (four criteria + a per-model output/accuracy/verdict
+  table), degrading to "Not yet rated" until scored. Scores start blank for the
+  team to fill via the CSVs; the lint validates the new columns (1–10).
 
 ### Removed
 - The daily Claude + web-search freshness Action (`script/freshness.rb` and
