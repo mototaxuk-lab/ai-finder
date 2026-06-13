@@ -7,6 +7,10 @@ breaking changes).
 
 ## [Unreleased]
 
+_Nothing yet._
+
+## [0.3.0] — 2026-06-12
+
 ### Added
 - Collaborator editing via GitHub: the seed CSVs are the editing surface
   (GitHub web editor → auto-PR), guarded by a catalogue lint
@@ -108,6 +112,7 @@ recommendations, built on Rails + PostgreSQL.
   keyword parser and still works.
 - Catalogue figures are reasonable approximations pending human curation.
 
-[Unreleased]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/mototaxuk-lab/ai-finder/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/mototaxuk-lab/ai-finder/releases/tag/v0.1.0
