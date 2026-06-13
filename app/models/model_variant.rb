@@ -26,13 +26,19 @@ class ModelVariant < ApplicationRecord
 
   # Gated verdict (1-10): the average of output quality + the tool's ease &
   # privacy, then capped by accuracy (a low accuracy score caps everything).
-  # nil = not enough has been scored to form a verdict.
+  # Requires this model's own signal (output quality or accuracy) — ease and
+  # privacy alone don't make a per-model verdict. nil = not yet rated.
   def verdict
-    parts = [output_quality, tool.ease_score, tool.privacy_score].compact
-    return nil if parts.empty?
+    return nil if output_quality.nil? && score_accuracy.nil?
 
-    base = parts.sum.to_f / parts.size
-    score_accuracy ? [base, score_accuracy.to_f].min : base
+    parts = [output_quality, tool.ease_score, tool.privacy_score].compact
+    base = parts.empty? ? nil : parts.sum.to_f / parts.size
+
+    if score_accuracy
+      base ? [base, score_accuracy.to_f].min : score_accuracy.to_f
+    else
+      base
+    end
   end
 
   # "$3 in / $15 out per 1M tokens" — mirrors Tool#price_summary.
