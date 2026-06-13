@@ -1,4 +1,6 @@
 class Tool < ApplicationRecord
+  include Scoreable
+
   # String-backed enums. Use prefixes so values like `none`/`yes` don't
   # clobber ActiveRecord methods (e.g. the built-in `Tool.none` scope).
   enum :status, { live: "live", dead: "dead", review: "review" }, default: "live"
@@ -27,14 +29,19 @@ class Tool < ApplicationRecord
   RANK_BASELINE = 5.0
 
   # Headline verdict (1-10) for the scorecard + ranking: the best of this
-  # tool's per-model verdicts. For a tool with no scored variants, fall back to
-  # a product-level verdict from ease + privacy alone. nil = not yet rated.
+  # tool's per-model verdicts. For a tool with no model lineup, score the
+  # product directly from its own output quality + accuracy. nil = not yet rated.
   def overall_verdict
     verdicts = model_variants.map(&:verdict).compact
     return verdicts.max.round(1) if verdicts.any?
 
-    parts = [ease_score, privacy_score].compact
-    parts.any? ? (parts.sum.to_f / parts.size).round(1) : nil
+    self_verdict&.round(1)
+  end
+
+  # Verdict from the tool's own scores — used when there are no scored
+  # variants (single-model products). Same gated formula as a model verdict.
+  def self_verdict
+    verdict_with(ease: ease_score, privacy: privacy_score)
   end
 
   # Weight for the weighted-random pick.

@@ -60,7 +60,13 @@ CSV.foreach(csv_path, headers: true) do |row|
     ease_label:               row["ease_label"].presence,
     why_this_one:             row["why_this_one"].presence,
     ease_score:               row["ease_score"].presence,
-    privacy_score:            row["privacy_score"].presence
+    privacy_score:            row["privacy_score"].presence,
+    score_text_generation:    row["score_text_generation"].presence,
+    score_email_writing:      row["score_email_writing"].presence,
+    score_logic:              row["score_logic"].presence,
+    score_coding:             row["score_coding"].presence,
+    score_image_generation:   row["score_image_generation"].presence,
+    score_accuracy:           row["score_accuracy"].presence
   )
   tool.save!
 

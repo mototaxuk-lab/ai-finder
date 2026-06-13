@@ -38,6 +38,10 @@ breaking changes).
   safety**. Output-quality sub-scores + accuracy live per model variant; ease +
   privacy per tool. A tool's headline verdict is its best model's verdict, and
   ranking now weights by it. Old `quality_score`/`value_score` retired.
+- Tools without a model lineup carry their own output-quality sub-scores +
+  accuracy (the product's "one model"), so single-model tools get a full
+  verdict too; their detail scorecard shows all four criteria instead of a
+  per-model table. Shared scoring lives in a `Scoreable` concern.
 - Result cards show an overall-verdict badge; the detail page gains an "Our
   verdict" scorecard (four criteria + a per-model output/accuracy/verdict
   table), degrading to "Not yet rated" until scored. Scores start blank for the

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_12_120001) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_12_120002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -124,6 +124,12 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_12_120001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "privacy_score"
+    t.integer "score_text_generation"
+    t.integer "score_email_writing"
+    t.integer "score_logic"
+    t.integer "score_coding"
+    t.integer "score_image_generation"
+    t.integer "score_accuracy"
     t.index ["consumer_free_app"], name: "index_tools_on_consumer_free_app"
     t.index ["data_retention"], name: "index_tools_on_data_retention"
     t.index ["name"], name: "index_tools_on_name", unique: true

@@ -29,7 +29,9 @@ CATALOGUE_HEADERS = %w[
   input_usd_per_m output_usd_per_m pricing_unit price_low_usd price_high_usd
   context_window api_free_tier consumer_free_app data_retention runs_locally
   privacy_label price_label ease_label why_this_one
-  ease_score privacy_score categories
+  ease_score privacy_score
+  score_text_generation score_email_writing score_logic score_coding
+  score_image_generation score_accuracy categories
 ].freeze
 
 VARIANT_HEADERS = %w[
@@ -121,7 +123,7 @@ catalogue.each.with_index(2) do |row, line|
     check_number(file, label, field, row[field], range: 0..Float::INFINITY)
   end
   check_number(file, label, "context_window", row["context_window"], range: 1..Float::INFINITY, integer: true)
-  %w[ease_score privacy_score].each do |field|
+  (%w[ease_score privacy_score] + VARIANT_SCORES).each do |field|
     check_number(file, label, field, row[field], range: 1..10, integer: true)
   end
 

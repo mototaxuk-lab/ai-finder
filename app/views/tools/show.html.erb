@@ -74,6 +74,10 @@
     </div>
 
     <dl class="criteria-grid">
+      <% unless variants.any? %>
+        <div class="criterion"><dt>Output quality</dt><dd><%= score_or_dash(@tool.output_quality) %></dd></div>
+        <div class="criterion"><dt>Accuracy &amp; trustworthiness</dt><dd><%= score_or_dash(@tool.score_accuracy) %></dd></div>
+      <% end %>
       <div class="criterion"><dt>Ease of use</dt><dd><%= score_or_dash(@tool.ease_score) %></dd></div>
       <div class="criterion"><dt>Privacy &amp; data safety</dt><dd><%= score_or_dash(@tool.privacy_score) %></dd></div>
     </dl>

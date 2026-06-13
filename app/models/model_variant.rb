@@ -3,42 +3,17 @@
 # the hard filter and weighted pick operate on tools only, and variants are
 # surfaced on result cards, the detail page, and (later) compare.
 class ModelVariant < ApplicationRecord
+  include Scoreable
+
   belongs_to :tool, inverse_of: :model_variants
 
   validates :name, presence: true, uniqueness: { scope: :tool_id }
 
   scope :ordered, -> { order(:position, :id) }
 
-  # The five output-quality sub-scores (label => column), 1-10, nullable.
-  OUTPUT_FIELDS = {
-    "Text generation"  => :score_text_generation,
-    "Email writing"    => :score_email_writing,
-    "Logic"            => :score_logic,
-    "Coding"           => :score_coding,
-    "Image generation" => :score_image_generation
-  }.freeze
-
-  # Average of whichever output sub-scores are filled (nil if none yet).
-  def output_quality
-    vals = OUTPUT_FIELDS.values.filter_map { |f| public_send(f) }
-    vals.any? ? vals.sum.to_f / vals.size : nil
-  end
-
-  # Gated verdict (1-10): the average of output quality + the tool's ease &
-  # privacy, then capped by accuracy (a low accuracy score caps everything).
-  # Requires this model's own signal (output quality or accuracy) — ease and
-  # privacy alone don't make a per-model verdict. nil = not yet rated.
+  # This model's gated verdict, using the parent tool's ease & privacy.
   def verdict
-    return nil if output_quality.nil? && score_accuracy.nil?
-
-    parts = [output_quality, tool.ease_score, tool.privacy_score].compact
-    base = parts.empty? ? nil : parts.sum.to_f / parts.size
-
-    if score_accuracy
-      base ? [base, score_accuracy.to_f].min : score_accuracy.to_f
-    else
-      base
-    end
+    verdict_with(ease: tool.ease_score, privacy: tool.privacy_score)
   end
 
   # "$3 in / $15 out per 1M tokens" — mirrors Tool#price_summary.
