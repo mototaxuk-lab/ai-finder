@@ -15,6 +15,9 @@ breaking changes).
   review if one exists, else just the scores + a link to visit the product.
   Every result card now links to it ("See review for complete score
   overview"). Replaces the old per-`Review` page and the conditional card badge.
+  The review page shows every criterion and the individual scores assigned
+  (including the five output sub-scores per model); the detail page keeps its
+  compact scorecard.
 
 ## [0.3.0] — 2026-06-12
 

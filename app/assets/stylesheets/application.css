@@ -277,3 +277,8 @@ a:hover { text-decoration: underline; }
 .review-prose { margin-top: 1.8rem; }
 .review-prose .review-meta { margin: 0.2rem 0 0.8rem; }
 .review-visit { margin-top: 1.5rem; }
+
+/* ---- detailed scores table (review page) ---- */
+.scores-scroll { overflow-x: auto; }
+.scores-table th, .scores-table td { white-space: nowrap; }
+.criterion-sub dt { padding-left: 0.8rem; color: #9aa0aa; }

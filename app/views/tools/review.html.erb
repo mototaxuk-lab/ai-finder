@@ -10,8 +10,8 @@
     <% end %>
   </header>
 
-  <%# The complete score overview %>
-  <%= render "scorecard", tool: @tool %>
+  <%# The complete score overview — every criterion and the scores assigned %>
+  <%= render "scorecard", tool: @tool, detailed: true %>
 
   <%# Written review, only if we've uploaded one for this tool %>
   <% if @review %>

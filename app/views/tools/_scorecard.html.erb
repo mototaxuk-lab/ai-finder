@@ -1,4 +1,6 @@
+<% detailed = local_assigns.fetch(:detailed, false) %>
 <% variants = tool.model_variants.ordered %>
+<% sub = [["Text", :score_text_generation], ["Email", :score_email_writing], ["Logic", :score_logic], ["Coding", :score_coding], ["Image", :score_image_generation]] %>
 
 <section class="specs-block scorecard">
   <div class="scorecard-head">
@@ -12,6 +14,11 @@
 
   <dl class="criteria-grid">
     <% unless variants.any? %>
+      <% if detailed %>
+        <% Scoreable::OUTPUT_FIELDS.each do |label, field| %>
+          <div class="criterion criterion-sub"><dt><%= label %></dt><dd><%= score_or_dash(tool.public_send(field)) %></dd></div>
+        <% end %>
+      <% end %>
       <div class="criterion"><dt>Output quality</dt><dd><%= score_or_dash(tool.output_quality) %></dd></div>
       <div class="criterion"><dt>Accuracy &amp; trustworthiness</dt><dd><%= score_or_dash(tool.score_accuracy) %></dd></div>
     <% end %>
@@ -20,22 +27,31 @@
   </dl>
 
   <% if variants.any? %>
-    <h3 class="scorecard-sub">Output quality &amp; accuracy, by model</h3>
-    <table class="models-table scores-table">
-      <thead>
-        <tr><th>Model</th><th>Output quality</th><th>Accuracy</th><th>Overall</th></tr>
-      </thead>
-      <tbody>
-        <% variants.each do |variant| %>
+    <h3 class="scorecard-sub">
+      <%= detailed ? "Scores by model" : "Output quality &amp; accuracy, by model".html_safe %>
+    </h3>
+    <div class="scores-scroll">
+      <table class="models-table scores-table">
+        <thead>
           <tr>
-            <td class="models-name"><%= variant.name %></td>
-            <td><%= score_or_dash(variant.output_quality) %></td>
-            <td><%= score_or_dash(variant.score_accuracy) %></td>
-            <td><strong><%= score_or_dash(variant.verdict) %></strong></td>
+            <th>Model</th>
+            <% if detailed %><% sub.each { |label, _| %><th><%= label %></th><% } %><% end %>
+            <th>Output quality</th><th>Accuracy</th><th>Overall</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% variants.each do |variant| %>
+            <tr>
+              <td class="models-name"><%= variant.name %></td>
+              <% if detailed %><% sub.each { |_, field| %><td><%= score_or_dash(variant.public_send(field)) %></td><% } %><% end %>
+              <td><%= score_or_dash(variant.output_quality) %></td>
+              <td><%= score_or_dash(variant.score_accuracy) %></td>
+              <td><strong><%= score_or_dash(variant.verdict) %></strong></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
 
   <p class="scorecard-note">
