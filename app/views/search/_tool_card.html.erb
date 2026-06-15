@@ -37,8 +37,7 @@
             data: { controller: "event-logger", action: "click->event-logger#log",
                     "event-logger-type-value": "card_click", "event-logger-tool-value": tool.id } %>
     <% end %>
-    <% if (review = tool.display_review) %>
-      <%= link_to "★ Read our review", review_path(review), class: "card-review" %>
-    <% end %>
   </footer>
+
+  <%= link_to "See review for complete score overview →", review_tool_path(tool), class: "card-review-link" %>
 </article>

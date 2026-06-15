@@ -7,10 +7,11 @@ Rails.application.routes.draw do
 
   get "search", to: "search#index"
   get "compare", to: "comparisons#show"
-  resources :tools, only: :show
+  resources :tools, only: :show do
+    member { get :review }
+  end
   resources :events, only: :create
   resources :posts, only: [:index, :show], path: "blog"
-  resources :reviews, only: :show
 
   # Defines the root path route ("/")
   root "pages#home"

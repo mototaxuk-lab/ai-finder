@@ -10,6 +10,11 @@ breaking changes).
 ### Changed
 - Renamed the per-model scorecard column "Verdict" → "Overall" to avoid
   clashing with the headline "Our verdict" (which is the best model's overall).
+- Reframed reviews as a per-tool page (`/tools/:id/review`): the full score
+  overview (scorecard, extracted to a shared partial) followed by our written
+  review if one exists, else just the scores + a link to visit the product.
+  Every result card now links to it ("See review for complete score
+  overview"). Replaces the old per-`Review` page and the conditional card badge.
 
 ## [0.3.0] — 2026-06-12
 

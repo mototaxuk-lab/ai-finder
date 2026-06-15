@@ -266,3 +266,14 @@ a:hover { text-decoration: underline; }
 .scores-table td:not(.models-name), .scores-table th:not(:first-child) { text-align: center; }
 .scorecard-note { color: var(--muted); font-size: 0.82rem; margin: 0.9rem 0 0; line-height: 1.5; }
 .score-none { color: #c0c4cc; }
+
+/* ---- card bottom review link ---- */
+.card-review-link {
+  display: block; margin-top: 0.85rem; padding-top: 0.75rem;
+  border-top: 1px solid var(--line); font-weight: 600; font-size: 0.9rem;
+}
+
+/* ---- per-tool review page ---- */
+.review-prose { margin-top: 1.8rem; }
+.review-prose .review-meta { margin: 0.2rem 0 0.8rem; }
+.review-visit { margin-top: 1.5rem; }

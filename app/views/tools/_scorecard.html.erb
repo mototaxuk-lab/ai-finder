@@ -1,0 +1,45 @@
+<% variants = tool.model_variants.ordered %>
+
+<section class="specs-block scorecard">
+  <div class="scorecard-head">
+    <h2 class="specs-title">Our verdict</h2>
+    <% if (v = tool.overall_verdict) %>
+      <span class="verdict-headline"><span class="verdict-num"><%= score_number(v) %></span>/10</span>
+    <% else %>
+      <span class="verdict-headline verdict-none">Not yet rated</span>
+    <% end %>
+  </div>
+
+  <dl class="criteria-grid">
+    <% unless variants.any? %>
+      <div class="criterion"><dt>Output quality</dt><dd><%= score_or_dash(tool.output_quality) %></dd></div>
+      <div class="criterion"><dt>Accuracy &amp; trustworthiness</dt><dd><%= score_or_dash(tool.score_accuracy) %></dd></div>
+    <% end %>
+    <div class="criterion"><dt>Ease of use</dt><dd><%= score_or_dash(tool.ease_score) %></dd></div>
+    <div class="criterion"><dt>Privacy &amp; data safety</dt><dd><%= score_or_dash(tool.privacy_score) %></dd></div>
+  </dl>
+
+  <% if variants.any? %>
+    <h3 class="scorecard-sub">Output quality &amp; accuracy, by model</h3>
+    <table class="models-table scores-table">
+      <thead>
+        <tr><th>Model</th><th>Output quality</th><th>Accuracy</th><th>Overall</th></tr>
+      </thead>
+      <tbody>
+        <% variants.each do |variant| %>
+          <tr>
+            <td class="models-name"><%= variant.name %></td>
+            <td><%= score_or_dash(variant.output_quality) %></td>
+            <td><%= score_or_dash(variant.score_accuracy) %></td>
+            <td><strong><%= score_or_dash(variant.verdict) %></strong></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <p class="scorecard-note">
+    Scores are out of 10. <strong>Output quality</strong> averages text generation, email writing, logic, coding and image generation.
+    <strong>Accuracy &amp; trustworthiness</strong> caps each model's overall score — a low accuracy score limits it no matter how strong everything else is. Our verdict is the best model's overall.
+  </p>
+</section>

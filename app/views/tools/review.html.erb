@@ -1,0 +1,40 @@
+<% content_for :title, "#{@tool.name} review — AI Finder" %>
+
+<article class="detail">
+  <%= link_to "← back", :back, class: "back-link" %>
+
+  <header class="detail-head">
+    <h1 class="detail-name"><%= @tool.name %> — our review</h1>
+    <% if @tool.provider.present? %>
+      <p class="detail-provider">by <%= @tool.provider %></p>
+    <% end %>
+  </header>
+
+  <%# The complete score overview %>
+  <%= render "scorecard", tool: @tool %>
+
+  <%# Written review, only if we've uploaded one for this tool %>
+  <% if @review %>
+    <section class="review-prose">
+      <h2 class="specs-title"><%= @review.title.presence || "What we think" %></h2>
+      <p class="review-meta">
+        <% if @review.rating %>
+          <span class="rating" aria-label="<%= @review.rating %> out of 5">
+            <%= "★" * @review.rating %><span class="rating-empty"><%= "★" * (5 - @review.rating) %></span>
+          </span>
+        <% end %>
+        <% if @review.byline.present? %><span class="review-byline"><%= @review.byline %></span><% end %>
+        <% if @review.published_at %><span class="review-date"><%= @review.published_at.strftime("%-d %b %Y") %></span><% end %>
+      </p>
+      <div class="post-body"><%= simple_format(@review.body) if @review.body.present? %></div>
+    </section>
+  <% end %>
+
+  <% if @tool.website_url.present? %>
+    <p class="review-visit">
+      <%= link_to "Visit #{@tool.name} →", @tool.website_url, target: "_blank", rel: "noopener", class: "visit-btn",
+            data: { controller: "event-logger", action: "click->event-logger#log",
+                    "event-logger-type-value": "card_click", "event-logger-tool-value": @tool.id } %>
+    </p>
+  <% end %>
+</article>
