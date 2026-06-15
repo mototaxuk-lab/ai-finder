@@ -58,4 +58,8 @@
     Scores are out of 10. <strong>Output quality</strong> averages text generation, email writing, logic, coding and image generation.
     <strong>Accuracy &amp; trustworthiness</strong> caps each model's overall score — a low accuracy score limits it no matter how strong everything else is. Our verdict is the best model's overall.
   </p>
+
+  <% unless detailed %>
+    <p class="scorecard-review-link"><%= link_to "See review for complete score overview →", review_tool_path(tool) %></p>
+  <% end %>
 </section>

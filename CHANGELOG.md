@@ -13,9 +13,9 @@ breaking changes).
 - Reframed reviews as a per-tool page (`/tools/:id/review`): the full score
   overview (scorecard, extracted to a shared partial) followed by our written
   review if one exists, else just the scores + a link to visit the product.
-  Linked as "See review for complete score overview" directly under the
-  "Our verdict" card on the tool detail page. Replaces the old per-`Review`
-  page and the conditional card badge.
+  Linked as "See review for complete score overview" inside the "Our verdict"
+  card on the tool detail page. Replaces the old per-`Review` page and the
+  conditional card badge.
   The review page shows every criterion and the individual scores assigned
   (including the five output sub-scores per model); the detail page keeps its
   compact scorecard.
