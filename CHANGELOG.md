@@ -1,6 +1,6 @@
 # Changelog
 
-Testing more
+Testing authetication for multiple users
 
 All notable changes to AI Finder are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/), and the project follows
