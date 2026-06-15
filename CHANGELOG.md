@@ -7,6 +7,8 @@ breaking changes).
 
 ## [Unreleased]
 
+Updated review schema for better scoring TBD.
+
 ### Changed
 - Renamed the per-model scorecard column "Verdict" → "Overall" to avoid
   clashing with the headline "Our verdict" (which is the best model's overall).
