@@ -7,7 +7,9 @@ breaking changes).
 
 ## [Unreleased]
 
-_Nothing yet._
+### Changed
+- Renamed the per-model scorecard column "Verdict" → "Overall" to avoid
+  clashing with the headline "Our verdict" (which is the best model's overall).
 
 ## [0.3.0] — 2026-06-12
 
